@@ -59,7 +59,7 @@ namespace Sistema_de_Produtos.Service
             }
             catch (Exception ex)
             {
-                estoque = new Dictionary<int, Produtos>();
+               
                 throw;
             }
         }
