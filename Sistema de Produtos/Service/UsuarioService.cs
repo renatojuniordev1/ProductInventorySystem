@@ -54,19 +54,20 @@ namespace Sistema_de_Produtos.Service
                 using (StreamWriter arquivo = new StreamWriter(caminho))
                 {
                     string json = JsonSerializer.Serialize<Dictionary<int, Produtos>>(estoque);
-                    arquivo.WriteLine(json);
+                    arquivo.Write(json);
                 }
             }
             catch (Exception ex)
             {
                 estoque = new Dictionary<int, Produtos>();
+                throw;
             }
         }
         public void Adicionar(Produtos produtos)
         {
             if (estoque.TryGetValue(produtos.Id, out Produtos Resultado))
             {
-                throw new Exception("ID já cadastrado");    
+                throw new Exception("Erro");    
             }
             
             
@@ -83,7 +84,7 @@ namespace Sistema_de_Produtos.Service
 
         public Produtos Consultar(int id)
         {
-            var produtos = estoque.TryGetValue(id, out Produtos? produto);
+            estoque.TryGetValue(id, out Produtos? produto);
             if (produto == null)
             {
                 
