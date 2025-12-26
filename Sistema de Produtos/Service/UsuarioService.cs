@@ -31,8 +31,12 @@ namespace Sistema_de_Produtos.Service
                     return;
                 }
 
-                string json = File.ReadAllText(caminho);
-                estoque = JsonSerializer.Deserialize<Dictionary<int, Produtos>>(json) ?? new Dictionary<int, Produtos>();
+                using (StreamReader arquivo = new StreamReader(caminho))
+                {
+                    string json = arquivo.ReadToEnd();
+                    
+                    estoque = JsonSerializer.Deserialize<Dictionary<int, Produtos>>(json) ?? new Dictionary<int, Produtos>();
+                }
             }
             catch (Exception ex)
             {
@@ -47,10 +51,11 @@ namespace Sistema_de_Produtos.Service
         {
             try
             {
-
-
-                string json = JsonSerializer.Serialize<Dictionary<int, Produtos>>(estoque);
-                File.WriteAllText(caminho, json);
+                using (StreamWriter arquivo = new StreamWriter(caminho))
+                {
+                    string json = JsonSerializer.Serialize<Dictionary<int, Produtos>>(estoque);
+                    arquivo.WriteLine(json);
+                }
             }
             catch (Exception ex)
             {
