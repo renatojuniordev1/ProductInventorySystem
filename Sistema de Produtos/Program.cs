@@ -104,7 +104,7 @@ class Program
         var estoque = service.Consultar(id);
         if (estoque == null)
         {
-            Console.WriteLine("Produto não encontrado no estoque");
+            Console.WriteLine("Produto  encontrado no estoque");
             return;
         }
         Console.WriteLine($"ID: {estoque.Id} | Nome: {estoque.Nome} | Preço: {estoque.Preco}");
